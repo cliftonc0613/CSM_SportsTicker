@@ -1,0 +1,25 @@
+.cst-entry {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.cst-entry:hover {
+    background-color: #f0f0f0;
+}
+
+.cst-entry .handle {
+    cursor: move;
+    margin-right: 10px;
+}
+
+.cst-entry input {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+#cst-add-entry {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

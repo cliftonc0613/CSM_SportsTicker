@@ -35,115 +35,83 @@ function cst_admin_page() {
 
 // Manual entry page
 function cst_manual_entry_page() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cst_manual_entries'])) {
-        $entries = $_POST['cst_manual_entries'];
-        $sanitized_entries = array();
-        foreach ($entries as $entry) {
-            $sanitized_entries[] = array(
-                'sport' => sanitize_text_field($entry['sport']),
-                'date' => sanitize_text_field($entry['date']),
-                'time' => sanitize_text_field($entry['time']),
-                'team1' => sanitize_text_field($entry['team1']),
-                'team2' => sanitize_text_field($entry['team2']),
-                'score1' => is_numeric($entry['score1']) ? intval($entry['score1']) : null,
-                'score2' => is_numeric($entry['score2']) ? intval($entry['score2']) : null,
-            );
+    if (isset($_POST['cst_save_entries'])) {
+        $entries = array();
+        foreach ($_POST['entry'] as $entry) {
+            if (!empty($entry['team1']) && !empty($entry['team2'])) {
+                $entries[] = $entry;
+            }
         }
-        update_option('cst_manual_entries', $sanitized_entries);
-        echo '<div class="notice notice-success"><p>Entries saved successfully!</p></div>';
+        update_option('cst_manual_entries', $entries);
     }
 
-    $manual_entries = get_option('cst_manual_entries', array());
+    $entries = get_option('cst_manual_entries', array());
     ?>
     <div class="wrap">
-        <h1>Manual Score Entry</h1>
-        <form method="post" id="cst-manual-entry-form">
-            <div id="cst-entries-container">
-                <?php
-                if (empty($manual_entries)) {
-                    cst_render_entry_fields();
-                } else {
-                    foreach ($manual_entries as $index => $entry) {
-                        cst_render_entry_fields($index, $entry);
-                    }
-                }
-                ?>
-            </div>
-            <button type="button" id="cst-add-entry" class="button">Add New Entry</button>
-            <?php submit_button('Save All Entries'); ?>
+        <h1>Clemson Sports Ticker</h1>
+        <form method="post">
+            <table class="form-table">
+                <tbody id="cst-entries">
+                    <?php foreach ($entries as $index => $entry): ?>
+                        <tr class="cst-entry">
+                            <td>
+                                <span class="dashicons dashicons-menu handle"></span>
+                                <input type="text" name="entry[<?php echo $index; ?>][sport]" value="<?php echo esc_attr($entry['sport']); ?>" placeholder="Sport" required>
+                                <input type="date" name="entry[<?php echo $index; ?>][date]" value="<?php echo esc_attr($entry['date']); ?>" required>
+                                <input type="time" name="entry[<?php echo $index; ?>][time]" value="<?php echo esc_attr($entry['time']); ?>" required>
+                                <input type="text" name="entry[<?php echo $index; ?>][team1]" value="<?php echo esc_attr($entry['team1']); ?>" placeholder="Team 1" required>
+                                <input type="text" name="entry[<?php echo $index; ?>][score1]" value="<?php echo esc_attr($entry['score1']); ?>" placeholder="Score 1">
+                                <input type="text" name="entry[<?php echo $index; ?>][team2]" value="<?php echo esc_attr($entry['team2']); ?>" placeholder="Team 2" required>
+                                <input type="text" name="entry[<?php echo $index; ?>][score2]" value="<?php echo esc_attr($entry['score2']); ?>" placeholder="Score 2">
+                                <button type="button" class="button button-secondary cst-remove-entry">Remove</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <button type="button" id="cst-add-entry" class="button button-secondary">Add Entry</button>
+            <input type="submit" name="cst_save_entries" value="Save Entries" class="button button-primary">
         </form>
     </div>
-
     <script>
-    jQuery(document).ready(function($) {
-        var entryIndex = <?php echo count($manual_entries); ?>;
-
-        $('#cst-add-entry').on('click', function() {
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'cst_add_entry_fields',
-                    index: entryIndex
-                },
-                success: function(response) {
-                    $('#cst-entries-container').append(response);
-                    entryIndex++;
+        jQuery(document).ready(function($) {
+            var index = <?php echo count($entries); ?>;
+            
+            $('#cst-entries').sortable({
+                handle: '.handle',
+                update: function(event, ui) {
+                    $('.cst-entry').each(function(i) {
+                        $(this).find('input').each(function() {
+                            var name = $(this).attr('name');
+                            var newName = name.replace(/\[(\d+)\]/, '[' + i + ']');
+                            $(this).attr('name', newName);
+                        });
+                    });
                 }
             });
-        });
 
-        $(document).on('click', '.cst-remove-entry', function() {
-            $(this).closest('.cst-entry-fields').remove();
+            $('#cst-add-entry').click(function() {
+                var newRow = '<tr class="cst-entry"><td>' +
+                    '<span class="dashicons dashicons-menu handle"></span>' +
+                    '<input type="text" name="entry[' + index + '][sport]" placeholder="Sport" required>' +
+                    '<input type="date" name="entry[' + index + '][date]" required>' +
+                    '<input type="time" name="entry[' + index + '][time]" required>' +
+                    '<input type="text" name="entry[' + index + '][team1]" placeholder="Team 1" required>' +
+                    '<input type="text" name="entry[' + index + '][score1]" placeholder="Score 1">' +
+                    '<input type="text" name="entry[' + index + '][team2]" placeholder="Team 2" required>' +
+                    '<input type="text" name="entry[' + index + '][score2]" placeholder="Score 2">' +
+                    '<button type="button" class="button button-secondary cst-remove-entry">Remove</button>' +
+                    '</td></tr>';
+                $('#cst-entries').append(newRow);
+                index++;
+                $('#cst-entries').sortable('refresh');
+            });
+
+            $(document).on('click', '.cst-remove-entry', function() {
+                $(this).closest('tr').remove();
+            });
         });
-    });
     </script>
-    <?php
-}
-
-function cst_render_entry_fields($index = 0, $entry = null) {
-    $sports = array("Football", "Men's Basketball", "Women's Basketball", "Baseball", "Softball", "Men's Soccer", "Women's Soccer");
-    ?>
-    <div class="cst-entry-fields" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-        <h3>Entry #<?php echo $index + 1; ?></h3>
-        <table class="form-table">
-            <tr>
-                <th>Sport</th>
-                <td>
-                    <select name="cst_manual_entries[<?php echo $index; ?>][sport]">
-                        <?php foreach ($sports as $sport) : ?>
-                            <option value="<?php echo esc_attr($sport); ?>" <?php selected($entry['sport'] ?? '', $sport); ?>><?php echo esc_html($sport); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td><input type="date" name="cst_manual_entries[<?php echo $index; ?>][date]" value="<?php echo esc_attr($entry['date'] ?? ''); ?>" required></td>
-            </tr>
-            <tr>
-                <th>Time</th>
-                <td><input type="time" name="cst_manual_entries[<?php echo $index; ?>][time]" value="<?php echo esc_attr($entry['time'] ?? ''); ?>" required></td>
-            </tr>
-            <tr>
-                <th>Team 1</th>
-                <td><input type="text" name="cst_manual_entries[<?php echo $index; ?>][team1]" value="<?php echo esc_attr($entry['team1'] ?? 'Clemson'); ?>" required></td>
-            </tr>
-            <tr>
-                <th>Team 2</th>
-                <td><input type="text" name="cst_manual_entries[<?php echo $index; ?>][team2]" value="<?php echo esc_attr($entry['team2'] ?? ''); ?>" required></td>
-            </tr>
-            <tr>
-                <th>Score 1</th>
-                <td><input type="number" name="cst_manual_entries[<?php echo $index; ?>][score1]" value="<?php echo esc_attr($entry['score1'] ?? ''); ?>"></td>
-            </tr>
-            <tr>
-                <th>Score 2</th>
-                <td><input type="number" name="cst_manual_entries[<?php echo $index; ?>][score2]" value="<?php echo esc_attr($entry['score2'] ?? ''); ?>"></td>
-            </tr>
-        </table>
-        <button type="button" class="button cst-remove-entry">Remove Entry</button>
-    </div>
     <?php
 }
 
