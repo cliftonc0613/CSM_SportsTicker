@@ -31,29 +31,6 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
-            'ticker_height',
-            [
-                'label' => __( 'Ticker Height', 'clemson-sports-ticker' ),
-                'type' => \Elementor\Controls_Manager::SLIDER,
-                'size_units' => [ 'px' ],
-                'range' => [
-                    'px' => [
-                        'min' => 100,
-                        'max' => 500,
-                        'step' => 10,
-                    ],
-                ],
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 120,
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} #clemson-sports-ticker' => 'height: {{SIZE}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->add_control(
             'show_manual_entries',
             [
                 'label' => __( 'Show Manual Entries', 'clemson-sports-ticker' ),
@@ -62,38 +39,6 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                 'label_off' => __( 'No', 'clemson-sports-ticker' ),
                 'return_value' => 'yes',
                 'default' => 'yes',
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'style_section',
-            [
-                'label' => __( 'Style', 'clemson-sports-ticker' ),
-                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->add_control(
-            'background_color',
-            [
-                'label' => __( 'Background Color', 'clemson-sports-ticker' ),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} #clemson-sports-ticker' => 'background-color: {{VALUE}}',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'text_color',
-            [
-                'label' => __( 'Text Color', 'clemson-sports-ticker' ),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} #clemson-sports-ticker' => 'color: {{VALUE}}',
-                ],
             ]
         );
 
@@ -124,6 +69,11 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                 h = h % 12;
                 h = h ? h : 12; // the hour '0' should be '12'
                 return h + ':' + minutes + ' ' + ampm;
+            }
+
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('en-US', options);
             }
 
             function SportsTicker(props) {
@@ -187,52 +137,54 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                 }
 
                 return (
-                    <div className="cst-ticker" style={{ height: props.ticker_height ? `${props.ticker_height.size}${props.ticker_height.unit}` : '120px' }}>
-                        <div className="cst-controls">
-                            <select
-                                value={selectedSport}
-                                onChange={(e) => setSelectedSport(e.target.value)}
-                                className="cst-select"
-                            >
-                                {sports.map((sport) => (
-                                    <option key={sport} value={sport}>{sport}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="swiper-container">
-                            <div className="swiper-wrapper">
-                                {filteredEvents.map((event) => (
-                                    <div key={event.id} className="swiper-slide">
-                                        <div className="cst-event">
-                                            <div className="cst-event-header">
-                                                <span className="cst-event-sport">{event.sport}</span>
-                                                <span className="cst-event-date">{event.date}</span>
-                                            </div>
-                                            <div className="cst-event-content">
-                                                {event.score1 !== null && event.score2 !== null ? (
-                                                    <>
-                                                        <div className="cst-event-team">
-                                                            <span>{event.team1}</span>
-                                                            <span className="cst-event-score">{event.score1}</span>
-                                                        </div>
-                                                        <div className="cst-event-team">
-                                                            <span>{event.team2}</span>
-                                                            <span className="cst-event-score">{event.score2}</span>
-                                                        </div>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <div className="cst-event-teams">{`${event.team1} vs ${event.team2}`}</div>
-                                                        <div className="cst-event-time">{formatTime(event.time)}</div>
-                                                    </>
-                                                )}
+                    <div className="cst-ticker">
+                        <div className="cst-layout">
+                            <div className="cst-controls">
+                                <select
+                                    value={selectedSport}
+                                    onChange={(e) => setSelectedSport(e.target.value)}
+                                    className="cst-select"
+                                >
+                                    {sports.map((sport) => (
+                                        <option key={sport} value={sport}>{sport}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="swiper-container">
+                                <div className="swiper-wrapper">
+                                    {filteredEvents.map((event) => (
+                                        <div key={event.id} className="swiper-slide">
+                                            <div className="cst-event">
+                                                <div className="cst-event-header">
+                                                    <span className="cst-event-sport">{event.sport}</span>
+                                                    <span className="cst-event-date">{formatDate(event.date)}</span>
+                                                </div>
+                                                <div className="cst-event-content">
+                                                    {event.score1 !== null && event.score2 !== null ? (
+                                                        <>
+                                                            <div className="cst-event-team">
+                                                                <span>{event.team1}</span>
+                                                                <span className="cst-event-score">{event.score1}</span>
+                                                            </div>
+                                                            <div className="cst-event-team">
+                                                                <span>{event.team2}</span>
+                                                                <span className="cst-event-score">{event.score2}</span>
+                                                            </div>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <div className="cst-event-teams">{`${event.team1} vs ${event.team2}`}</div>
+                                                            <div className="cst-event-time">{formatTime(event.time)}</div>
+                                                        </>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
+                                <div className="swiper-button-next"></div>
+                                <div className="swiper-button-prev"></div>
                             </div>
-                            <div className="swiper-button-next"></div>
-                            <div className="swiper-button-prev"></div>
                         </div>
                     </div>
                 );

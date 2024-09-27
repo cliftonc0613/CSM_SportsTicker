@@ -7,13 +7,18 @@
   font-family: Arial, sans-serif;
 }
 
-.cst-controls {
+.cst-layout {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+.cst-controls {
+  width: 200px;
+  margin-right: 20px;
 }
 
 .cst-select {
+  width: 100%;
   appearance: none;
   background-color: white;
   border: 1px solid #522D80;
@@ -21,7 +26,6 @@
   padding: 5px 24px 5px 8px;
   font-size: 12px;
   color: #522D80;
-  margin-right: 10px;
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23522D80" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
   background-repeat: no-repeat;
   background-position: right 8px center;
@@ -29,7 +33,7 @@
 }
 
 .swiper-container {
-  width: 100%;
+  width: calc(100% - 220px);
   height: 100%;
 }
 
@@ -38,8 +42,8 @@
 }
 
 .cst-event {
-  width: 160px;
-  height: 100px;
+  width: 180px;
+  height: 120px;
   background-color: white;
   border: 1px solid #522D80;
   border-radius: 4px;
@@ -77,23 +81,29 @@
 
 .cst-event-team {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .cst-event-score {
   font-weight: bold;
+  margin-left: auto;
 }
 
 .cst-event-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .cst-event-time {
-  margin-top: 2px;
+  margin-top: 4px;
+  text-align: center;
 }
 
 .cst-loading, .cst-error {
@@ -101,6 +111,56 @@
   text-align: center;
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-button-next,
+.swiper-button-prev {
   color: #F66733;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .cst-layout {
+    flex-direction: column;
+  }
+
+  .cst-controls {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .swiper-container {
+    width: 100%;
+  }
+
+  .cst-event {
+    width: 160px;
+    height: 110px;
+  }
+
+  .cst-event-sport {
+    font-size: 11px;
+  }
+
+  .cst-event-content {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cst-event {
+    width: 140px;
+    height: 100px;
+  }
+
+  .cst-event-sport {
+    font-size: 10px;
+  }
+
+  .cst-event-content {
+    font-size: 8px;
+  }
 }
