@@ -1,0 +1,106 @@
+.cst-ticker {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #522D80;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.cst-controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cst-select {
+  appearance: none;
+  background-color: white;
+  border: 1px solid #522D80;
+  border-radius: 4px;
+  padding: 5px 24px 5px 8px;
+  font-size: 12px;
+  color: #522D80;
+  margin-right: 10px;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23522D80" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  width: auto;
+}
+
+.cst-event {
+  width: 160px;
+  height: 100px;
+  background-color: white;
+  border: 1px solid #522D80;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cst-event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.cst-event-sport {
+  font-weight: bold;
+  color: #F66733;
+  font-size: 12px;
+}
+
+.cst-event-date {
+  font-size: 10px;
+  color: #522D80;
+}
+
+.cst-event-content {
+  font-size: 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cst-event-team {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.cst-event-score {
+  font-weight: bold;
+}
+
+.cst-event-teams {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.cst-event-time {
+  margin-top: 2px;
+}
+
+.cst-loading, .cst-error {
+  padding: 20px;
+  text-align: center;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  color: #F66733;
+}
