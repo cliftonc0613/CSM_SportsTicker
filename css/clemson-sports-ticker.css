@@ -8,14 +8,24 @@
 }
 
 .cst-layout {
-  display: flex;
+  display: flex; /* Ensure the layout is flex */
   align-items: flex-start;
 }
 
+.cst-content {
+  display: flex;
+}
+/* Add this new class for the events container */
+.cst-events-container {
+  flex-grow: 1; /* Allow it to take the remaining space */
+  display: flex; /* Optional: if you want to control the layout of events */
+  overflow-x: auto; /* Optional: to allow horizontal scrolling if needed */
+}
+
 .cst-controls {
-  width: 200px;
+  width: 200px; /* Fixed width for controls */
   height: 100px;
-  margin-right: 20px;
+  margin-right: 20px; /* Space between controls and events */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,6 +53,7 @@
 
 .swiper-slide {
   width: auto;
+  margin: 0 3px;
 }
 
 .cst-event {

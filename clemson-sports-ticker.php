@@ -32,6 +32,90 @@ add_action('admin_menu', 'cst_admin_menu');
 // Admin page content
 function cst_admin_page() {
     // ... (keep the existing implementation)
+    ?>
+    <div class="wrap">
+        <h1>Clemson Sports Ticker</h1>
+        <div class="cst-layout"> <!-- Added layout wrapper -->
+            <div class="cst-controls">
+                <button type="button" id="cst-add-entry" class="button button-secondary">Add Entry</button>
+            </div>
+            <div class="cst-events-container"> <!-- Added events container -->
+                <form method="post">
+                    <table class="form-table">
+                        <tbody id="cst-entries">
+                            <?php foreach ($entries as $index => $entry): ?>
+                                <tr class="cst-entry">
+                                    <td>
+                                        <span class="dashicons dashicons-menu handle"></span>
+                                        <select name="entry[<?php echo $index; ?>][sport]" required>
+                                            <option value="">Select a sport</option>
+                                            <?php foreach ($sports_list as $sport): ?>
+                                                <option value="<?php echo esc_attr($sport); ?>" <?php selected($entry['sport'], $sport); ?>><?php echo esc_html($sport); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <input type="date" name="entry[<?php echo $index; ?>][date]" value="<?php echo esc_attr($entry['date']); ?>">
+                                        <input type="time" name="entry[<?php echo $index; ?>][time]" value="<?php echo esc_attr($entry['time']); ?>">
+                                        <input type="text" name="entry[<?php echo $index; ?>][team1]" value="<?php echo esc_attr($entry['team1']); ?>" placeholder="Team 1" required>
+                                        <input type="text" name="entry[<?php echo $index; ?>][score1]" value="<?php echo esc_attr($entry['score1']); ?>" placeholder="Score 1">
+                                        <input type="text" name="entry[<?php echo $index; ?>][team2]" value="<?php echo esc_attr($entry['team2']); ?>" placeholder="Team 2" required>
+                                        <input type="text" name="entry[<?php echo $index; ?>][score2]" value="<?php echo esc_attr($entry['score2']); ?>" placeholder="Score 2">
+                                        <button type="button" class="button button-secondary cst-remove-entry">Remove</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <input type="submit" name="cst_save_entries" value="Save Entries" class="button button-primary">
+                </form>
+            </div>
+        </div> <!-- End of layout wrapper -->
+    </div>
+    <script>
+        jQuery(document).ready(function($) {
+            var index = <?php echo count($entries); ?>;
+            var sportsList = <?php echo json_encode($sports_list); ?>;
+            
+            $('#cst-entries').sortable({
+                handle: '.handle',
+                update: function(event, ui) {
+                    $('.cst-entry').each(function(i) {
+                        $(this).find('select, input').each(function() {
+                            var name = $(this).attr('name');
+                            var newName = name.replace(/\[(\d+)\]/, '[' + i + ']');
+                            $(this).attr('name', newName);
+                        });
+                    });
+                }
+            });
+
+            $('#cst-add-entry').click(function() {
+                var sportOptions = '<option value="">Select a sport</option>';
+                sportsList.forEach(function(sport) {
+                    sportOptions += '<option value="' + sport + '">' + sport + '</option>';
+                });
+
+                var newRow = '<tr class="cst-entry"><td>' +
+                    '<span class="dashicons dashicons-menu handle"></span>' +
+                    '<select name="entry[' + index + '][sport]" required>' + sportOptions + '</select>' +
+                    '<input type="date" name="entry[' + index + '][date]">' +
+                    '<input type="time" name="entry[' + index + '][time]">' +
+                    '<input type="text" name="entry[' + index + '][team1]" value="Clemson" placeholder="Team 1" required>' +
+                    '<input type="text" name="entry[' + index + '][score1]" placeholder="Score 1">' +
+                    '<input type="text" name="entry[' + index + '][team2]" placeholder="Team 2" required>' +
+                    '<input type="text" name="entry[' + index + '][score2]" placeholder="Score 2">' +
+                    '<button type="button" class="button button-secondary cst-remove-entry">Remove</button>' +
+                    '</td></tr>';
+                $('#cst-entries').append(newRow);
+                index++;
+                $('#cst-entries').sortable('refresh');
+            });
+
+            $(document).on('click', '.cst-remove-entry', function() {
+                $(this).closest('tr').remove();
+            });
+        });
+    </script>
+    <?php
 }
 
 // Define sports list
