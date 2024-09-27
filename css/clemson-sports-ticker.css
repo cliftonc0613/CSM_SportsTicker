@@ -14,7 +14,11 @@
 
 .cst-controls {
   width: 200px;
+  height: 100px;
   margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cst-select {
@@ -43,11 +47,10 @@
 
 .cst-event {
   width: 180px;
-  height: 120px;
   background-color: white;
   border: 1px solid #522D80;
   border-radius: 4px;
-  padding: 8px;
+  padding: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -57,7 +60,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .cst-event-sport {
@@ -83,7 +86,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .cst-event-score {
@@ -98,12 +101,13 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .cst-event-time {
-  margin-top: 4px;
-  text-align: center;
+  margin-top: 2px;
+  text-align: left;
+  font-weight: bold;
 }
 
 .cst-loading, .cst-error {
@@ -128,6 +132,7 @@
 
   .cst-controls {
     width: 100%;
+    height: auto;
     margin-right: 0;
     margin-bottom: 10px;
   }
@@ -138,7 +143,6 @@
 
   .cst-event {
     width: 160px;
-    height: 110px;
   }
 
   .cst-event-sport {
@@ -153,7 +157,6 @@
 @media (max-width: 480px) {
   .cst-event {
     width: 140px;
-    height: 100px;
   }
 
   .cst-event-sport {
