@@ -117,6 +117,15 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                 "Women's Soccer"
             ];
 
+            function formatTime(time) {
+                const [hours, minutes] = time.split(':');
+                let h = parseInt(hours);
+                const ampm = h >= 12 ? 'PM' : 'AM';
+                h = h % 12;
+                h = h ? h : 12; // the hour '0' should be '12'
+                return h + ':' + minutes + ' ' + ampm;
+            }
+
             function SportsTicker(props) {
                 const [events, setEvents] = React.useState([]);
                 const [selectedSport, setSelectedSport] = React.useState('All Sports');
@@ -214,7 +223,7 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                                                 ) : (
                                                     <>
                                                         <div className="cst-event-teams">{`${event.team1} vs ${event.team2}`}</div>
-                                                        <div className="cst-event-time">{event.time}</div>
+                                                        <div className="cst-event-time">{formatTime(event.time)}</div>
                                                     </>
                                                 )}
                                             </div>

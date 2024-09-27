@@ -214,16 +214,16 @@ function cst_get_sports_data() {
 function cst_scrape_sports_data() {
     // Example data; replace with actual scraping logic
     return array(
-        array(
-            'id' => uniqid('scraped_'),
-            'date' => '2023-10-01',
-            'time' => '15:00',
-            'sport' => 'Football',
-            'team1' => 'Clemson',
-            'team2' => 'Opponent',
-            'score1' => 28,
-            'score2' => 14,
-        ),
+        // array(
+        //     'id' => uniqid('scraped_'),
+        //     'date' => '2023-10-01',
+        //     'time' => '15:00',
+        //     'sport' => 'Football',
+        //     'team1' => 'Clemson',
+        //     'team2' => 'Opponent',
+        //     'score1' => 28,
+        //     'score2' => 14,
+        // ),
         // Add more entries as needed
     );
 }
