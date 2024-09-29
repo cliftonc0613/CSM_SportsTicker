@@ -7,13 +7,34 @@
   font-family: Arial, sans-serif;
 }
 
-.cst-controls {
+.cst-layout {
+  display: flex; /* Ensure the layout is flex */
+  align-items: flex-start;
+}
+
+.cst-content {
+  margin: 0 10px;
+}
+.cst-content {
   display: flex;
+}
+/* Add this new class for the events container */
+.cst-events-container {
+  flex-grow: 1; /* Allow it to take the remaining space */
+  display: flex; /* Optional: if you want to control the layout of events */
+  overflow-x: auto; /* Optional: to allow horizontal scrolling if needed */
+}
+
+.cst-controls {
+  width: 200px; /* Fixed width for controls */
+  margin-right: 20px; /* Space between controls and events */
+  display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
 }
 
 .cst-select {
+  width: 100%;
   appearance: none;
   background-color: white;
   border: 1px solid #522D80;
@@ -21,7 +42,6 @@
   padding: 5px 24px 5px 8px;
   font-size: 12px;
   color: #522D80;
-  margin-right: 10px;
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23522D80" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
   background-repeat: no-repeat;
   background-position: right 8px center;
@@ -29,21 +49,21 @@
 }
 
 .swiper-container {
-  width: 100%;
+  width: calc(100% - 220px);
   height: 100%;
 }
 
 .swiper-slide {
   width: auto;
+  margin: 0;
 }
 
 .cst-event {
-  width: 160px;
-  height: 100px;
-  background-color: white;
-  border: 1px solid #522D80;
-  border-radius: 4px;
-  padding: 8px;
+  width: auto;
+  /* background-color: white; */
+  border-right: 1px solid #c6c6c6;
+  /* border-radius: 4px; */
+  padding: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -53,18 +73,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .cst-event-sport {
   font-weight: bold;
   color: #F66733;
   font-size: 12px;
+  /* text-transform: uppercase; */
+  margin: -10px 0 0 0;
+  font-size: 12px;
 }
 
 .cst-event-date {
   font-size: 10px;
   color: #522D80;
+  text-transform: uppercase; /* Added to make date uppercase */
 }
 
 .cst-event-content {
@@ -77,23 +101,33 @@
 
 .cst-event-team {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 2px;
+  font-size: 12px;
 }
 
 .cst-event-score {
   font-weight: bold;
+  margin-left: auto;
+  margin: 0 3px 
 }
 
 .cst-event-teams {
+  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 2px;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .cst-event-time {
   margin-top: 2px;
+  text-align: left;
+  font-weight: bold;
+  text-transform: uppercase; /* Added to make time uppercase */
 }
 
 .cst-loading, .cst-error {
@@ -101,6 +135,75 @@
   text-align: center;
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-button-next,
+.swiper-button-prev {
   color: #F66733;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px;
+}
+
+
+.swiper-pagination {
+  display: flex; /* Align pagination items */
+  justify-content: center; /* Center the pagination */
+  margin-top: 10px; /* Space above the pagination */
+}
+
+.swiper-pagination-bullet {
+  background-color: #F66733; /* Orange color for pagination bullets */
+  opacity: 1; /* Ensure bullets are fully opaque */
+  width: 10px; /* Width of the bullet */
+  height: 10px; /* Height of the bullet */
+  border-radius: 50%; /* Make bullets circular */
+  margin: 0 5px; /* Space between bullets */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #FF8C00; /* Darker orange for the active bullet */
+}
+
+@media (max-width: 768px) {
+  .cst-layout {
+    flex-direction: column;
+  }
+
+  .cst-controls {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .swiper-container {
+    width: 100%;
+  }
+
+  .cst-event {
+    width: 160px;
+  }
+
+  .cst-event-sport {
+    font-size: 11px;
+  }
+
+  .cst-event-content {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cst-event {
+    width: 140px;
+  }
+
+  .cst-event-sport {
+    font-size: 10px;
+  }
+
+  .cst-event-content {
+    font-size: 8px;
+  }
 }
