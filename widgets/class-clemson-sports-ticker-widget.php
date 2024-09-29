@@ -88,23 +88,18 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                                         {filteredSports.map(sport => (
                                             <div key={sport.id} className="swiper-slide">
                                                 <div className="cst-event">
-                                                    <div className="cst-event-header">
-                                                        <span className="cst-event-sport">{sport.sport}</span>
+                                                    <div className="cst-event-date">
+                                                        {formatDate(sport.date)} - {formatTime(sport.time) || 'TBA'}
                                                     </div>
-                                                    <div className="cst-event-content">
-                                                        <div className="cst-event-teams">
-                                                            <span className="cst-team">{sport.team1}</span>
-                                                            <span className="cst-vs">vs</span>
-                                                            <span className="cst-team">{sport.team2}</span>
-                                                        </div>
-                                                        <div className="cst-event-scores">
-                                                            <span className="cst-score">{sport.score1 || '-'}</span>
-                                                            <span className="cst-score">{sport.score2 || '-'}</span>
-                                                        </div>
-                                                        <div className="cst-event-datetime">
-                                                            <span className="cst-date">{formatDate(sport.date)}</span>
-                                                            <span className="cst-time">{formatTime(sport.time)}</span>
-                                                        </div>
+                                                    <div className="cst-event-sport">
+                                                        {sport.sport}
+                                                    </div>
+                                                    <div className="cst-event-teams">
+                                                        {sport.team1} 
+                                                        <span className="cst-event-score">
+                                                            {sport.score1 || sport.score2 ? `${sport.score1 || 0} - ${sport.score2 || 0}` : 'vs'}
+                                                        </span> 
+                                                        {sport.team2}
                                                     </div>
                                                 </div>
                                             </div>

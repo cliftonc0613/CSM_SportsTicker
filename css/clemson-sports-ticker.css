@@ -24,7 +24,6 @@
 
 .cst-controls {
   width: 200px; /* Fixed width for controls */
-  height: 100px;
   margin-right: 20px; /* Space between controls and events */
   display: flex;
   justify-content: center;
@@ -57,10 +56,10 @@
 }
 
 .cst-event {
-  width: 180px;
-  background-color: white;
-  border: 1px solid #522D80;
-  border-radius: 4px;
+  width: 210px;
+  /* background-color: white; */
+  border-right: 1px solid #c6c6c6;
+  /* border-radius: 4px; */
   padding: 6px;
   display: flex;
   flex-direction: column;
@@ -78,11 +77,15 @@
   font-weight: bold;
   color: #F66733;
   font-size: 12px;
+  /* text-transform: uppercase; */
+  margin: -10px 0 0 0;
+  font-size: 14px;
 }
 
 .cst-event-date {
   font-size: 10px;
   color: #522D80;
+  text-transform: uppercase; /* Added to make date uppercase */
 }
 
 .cst-event-content {
@@ -98,27 +101,30 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2px;
+  font-size: 12px;
 }
 
 .cst-event-score {
   font-weight: bold;
   margin-left: auto;
+  margin: 0 3px 
 }
 
 .cst-event-teams {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 2px;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .cst-event-time {
   margin-top: 2px;
   text-align: left;
   font-weight: bold;
+  text-transform: uppercase; /* Added to make time uppercase */
 }
 
 .cst-loading, .cst-error {
