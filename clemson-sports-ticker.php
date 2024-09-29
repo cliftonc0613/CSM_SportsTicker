@@ -122,21 +122,21 @@ function cst_admin_page() {
 function cst_get_sports_list() {
     return array(
         'Baseball',
-        'Men\'s Basketball',
-        'Women\'s Basketball',
-        'Men\'s Cross Country',
-        'Women\'s Cross Country',
+        'M. Basketball',
+        'W. Basketball',
+        'M. Cross Country',
+        'W. Cross Country',
         'Football',
-        'Men\'s Golf',
-        'Women\'s Golf',
+        'M. Golf',
+        'W. Golf',
         'Rowing',
-        'Men\'s Soccer',
-        'Women\'s Soccer',
+        'M. Soccer',
+        'W. Soccer',
         'Softball',
-        'Men\'s Tennis',
-        'Women\'s Tennis',
-        'Men\'s Track & Field',
-        'Women\'s Track & Field',
+        'M. Tennis',
+        'W.Tennis',
+        'M.Track & Field',
+        'W.Track & Field',
         'Volleyball'
     );
 }
@@ -147,6 +147,15 @@ function cst_manual_entry_page() {
         $entries = array();
         foreach ($_POST['entry'] as $entry) {
             if (!empty($entry['team1']) && !empty($entry['team2'])) {
+                // Sanitize inputs
+                $entry['sport'] = sanitize_text_field($entry['sport']);
+                $entry['date'] = sanitize_text_field($entry['date']);
+                $entry['time'] = sanitize_text_field($entry['time']);
+                $entry['team1'] = sanitize_text_field($entry['team1']);
+                $entry['score1'] = sanitize_text_field($entry['score1']);
+                $entry['team2'] = sanitize_text_field($entry['team2']);
+                $entry['score2'] = sanitize_text_field($entry['score2']);
+                
                 $entries[] = $entry;
             }
         }
@@ -205,13 +214,13 @@ function cst_manual_entry_page() {
                     });
                 }
             });
-
+            
             $('#cst-add-entry').click(function() {
                 var sportOptions = '<option value="">Select a sport</option>';
                 sportsList.forEach(function(sport) {
                     sportOptions += '<option value="' + sport + '">' + sport + '</option>';
                 });
-
+ 
                 var newRow = '<tr class="cst-entry"><td>' +
                     '<span class="dashicons dashicons-menu handle"></span>' +
                     '<select name="entry[' + index + '][sport]" required>' + sportOptions + '</select>' +
@@ -227,7 +236,7 @@ function cst_manual_entry_page() {
                 index++;
                 $('#cst-entries').sortable('refresh');
             });
-
+ 
             $(document).on('click', '.cst-remove-entry', function() {
                 $(this).closest('tr').remove();
             });

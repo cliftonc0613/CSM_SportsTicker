@@ -13,6 +13,9 @@
 }
 
 .cst-content {
+  margin: 0 10px;
+}
+.cst-content {
   display: flex;
 }
 /* Add this new class for the events container */
@@ -52,11 +55,11 @@
 
 .swiper-slide {
   width: auto;
-  margin: 0 3px;
+  margin: 0;
 }
 
 .cst-event {
-  width: 210px;
+  width: auto;
   /* background-color: white; */
   border-right: 1px solid #c6c6c6;
   /* border-radius: 4px; */
@@ -79,7 +82,7 @@
   font-size: 12px;
   /* text-transform: uppercase; */
   margin: -10px 0 0 0;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .cst-event-date {
@@ -140,6 +143,26 @@
 .swiper-button-next:after,
 .swiper-button-prev:after {
   font-size: 20px;
+}
+
+
+.swiper-pagination {
+  display: flex; /* Align pagination items */
+  justify-content: center; /* Center the pagination */
+  margin-top: 10px; /* Space above the pagination */
+}
+
+.swiper-pagination-bullet {
+  background-color: #F66733; /* Orange color for pagination bullets */
+  opacity: 1; /* Ensure bullets are fully opaque */
+  width: 10px; /* Width of the bullet */
+  height: 10px; /* Height of the bullet */
+  border-radius: 50%; /* Make bullets circular */
+  margin: 0 5px; /* Space between bullets */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #FF8C00; /* Darker orange for the active bullet */
 }
 
 @media (max-width: 768px) {

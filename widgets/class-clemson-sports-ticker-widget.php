@@ -106,6 +106,9 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                                         ))}
                                     </div>
                                 </div>
+                                
+                                {/* Navigation Arrows outside the slider */}
+                                
                             </div>
                         </div>
                     </div>
@@ -117,11 +120,15 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
             // Initialize Swiper
             new Swiper('.swiper-container', {
                 slidesPerView: 'auto',
-                spaceBetween: 20,
+                spaceBetween: 0,
                 freeMode: true,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
+                // pagination: {
+                //     el: '.swiper-pagination',
+                //     clickable: true,
+                // },
+                navigation: { // Added navigation options<div className="swiper-button-next"></div> <div className="swiper-button-prev"></div>
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
                 },
             });
         </script>
