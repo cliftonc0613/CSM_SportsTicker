@@ -3,7 +3,7 @@
  * Plugin Name: Clemson Sports Ticker
  * Plugin URI: https://github.com/cliftonc0613/CSM_SportsTicker.git
  * Description: A sports ticker displaying Clemson University sports scores
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Clifton T. Canady
  * Author URI: https://yourwebsite.com
  * License: GPL2
