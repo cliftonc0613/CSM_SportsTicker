@@ -94,18 +94,12 @@
   justify-content: space-between;
 }
 
-.cst-event-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2px;
-}
 
 .cst-event-sport {
   font-weight: bold;
   color: #F66733;
   font-size: 12px;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
   /* margin: -10px 0 0 0; */
   font-size: 12px;
 }
@@ -113,6 +107,7 @@
 .cst-event-date {
   font-size: 10px;
   color: #522D80;
+  font-weight: 600;
   text-transform: uppercase; /* Added to make date uppercase */
 }
 
@@ -124,13 +119,13 @@
   justify-content: center;
 }
 
-.cst-event-team {
+/* .cst-event-team {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2px;
   font-size: 12px;
-}
+} */
 
 .cst-event-score {
   font-weight: bold;
@@ -145,7 +140,7 @@
   text-overflow: ellipsis;
   margin-bottom: 2px;
   font-size: 14px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .cst-event-time {
