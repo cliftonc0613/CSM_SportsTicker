@@ -104,10 +104,10 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                                                 </div>
                                             </div>
                                         ))}
+                                        {/* Navigation Arrows outside the slider */}
+                                        <div class="swiper-scrollbar"></div>
                                     </div>
                                 </div>
-                                
-                                {/* Navigation Arrows outside the slider */}
                                 
                             </div>
                         </div>
@@ -122,14 +122,21 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                 slidesPerView: 'auto',
                 spaceBetween: 0,
                 freeMode: true,
+                loop: true,
                 // pagination: {
                 //     el: '.swiper-pagination',
                 //     clickable: true,
                 // },
-                navigation: { // Added navigation options<div className="swiper-button-next"></div> <div className="swiper-button-prev"></div>
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                scrollbar: {
+                    el: ".swiper-scrollbar",
+                    draggable: true,
                 },
+                mousewheel: true
+                
+                // navigation: { // Added navigation options<div className="swiper-button-next"></div> <div className="swiper-button-prev"></div>
+                //     nextEl: '.swiper-button-next',
+                //     prevEl: '.swiper-button-prev',
+                // },
             });
         </script>
         <?php
