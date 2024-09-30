@@ -1,9 +1,14 @@
 <?php
 /**
  * Plugin Name: Clemson Sports Ticker
+ * Plugin URI: https://github.com/cliftonc0613/CSM_SportsTicker.git
  * Description: A sports ticker displaying Clemson University sports scores
- * Version: 1.0
- * Author: Your Name
+ * Version: 1.0.0
+ * Author: Clifton T. Canady
+ * Author URI: https://yourwebsite.com
+ * License: GPL2
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * GitHub Plugin URI: https://github.com/cliftonc0613/CSM_SportsTicker.git
  */
 
 if (!defined('ABSPATH')) {
