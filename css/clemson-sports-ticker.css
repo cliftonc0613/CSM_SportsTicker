@@ -6,23 +6,25 @@
   padding: 10px;
   font-family: Arial, sans-serif;
 }
-
+/* 
 .cst-layout {
-  display: flex; /* Ensure the layout is flex */
+  display: flex; 
   align-items: flex-start;
-}
+} */
 
-.cst-content {
-  margin: 0 10px;
+.cst-container {
+  border-bottom: 1px solid #522D80;
 }
 .cst-content {
   display: flex;
+  margin: 0 10px;
 }
 /* Add this new class for the events container */
 .cst-events-container {
   flex-grow: 1; /* Allow it to take the remaining space */
   display: flex; /* Optional: if you want to control the layout of events */
   overflow-x: auto; /* Optional: to allow horizontal scrolling if needed */
+  width: calc(100% - 80px);
 }
 
 .cst-controls {
@@ -49,7 +51,6 @@
 }
 
 .swiper-container {
-  width: calc(100% - 220px);
   height: 100%;
 }
 
@@ -80,7 +81,7 @@
   font-weight: bold;
   color: #F66733;
   font-size: 12px;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
   margin: -10px 0 0 0;
   font-size: 12px;
 }
@@ -120,7 +121,7 @@
   text-overflow: ellipsis;
   margin-bottom: 2px;
   font-size: 14px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .cst-event-time {
@@ -181,10 +182,6 @@
     width: 100%;
   }
 
-  .cst-event {
-    width: 160px;
-  }
-
   .cst-event-sport {
     font-size: 11px;
   }
@@ -195,10 +192,9 @@
 }
 
 @media (max-width: 480px) {
-  .cst-event {
-    width: 140px;
+  .cst-content {
+    display: block;
   }
-
   .cst-event-sport {
     font-size: 10px;
   }
