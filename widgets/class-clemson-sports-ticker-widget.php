@@ -56,7 +56,7 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                 const formatDate = (dateString) => {
                     if (!dateString) return '';
                     const options = { weekday: 'short', month: 'short', day: 'numeric' };
-                    return new Date(dateString).toLocaleDateString('en-US', options);
+                    return new Date(dateString + 'T00:00:00').toLocaleDateString('en-US', options);
                 };
 
                 const formatTime = (timeString) => {
@@ -108,7 +108,8 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                                 </div>
                                 
                                 {/* Navigation Arrows outside the slider */}
-                                
+                                <div className="swiper-button-next"></div>
+                                <div className="swiper-button-prev"></div>
                             </div>
                         </div>
                     </div>
@@ -122,11 +123,7 @@ class Elementor_Clemson_Sports_Ticker_Widget extends \Elementor\Widget_Base {
                 slidesPerView: 'auto',
                 spaceBetween: 0,
                 freeMode: true,
-                // pagination: {
-                //     el: '.swiper-pagination',
-                //     clickable: true,
-                // },
-                navigation: { // Added navigation options<div className="swiper-button-next"></div> <div className="swiper-button-prev"></div>
+                navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },

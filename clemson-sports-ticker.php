@@ -161,6 +161,18 @@ function cst_manual_entry_page() {
                 $entry['team2'] = sanitize_text_field($entry['team2']);
                 $entry['score2'] = sanitize_text_field($entry['score2']);
                 
+                // Combine date and time
+                $dateTimeString = $entry['date'] . ' ' . $entry['time'];
+
+                // Create DateTime object in the local timezone
+                $localTimezone = new DateTimeZone(get_option('timezone_string'));
+                $date = new DateTime($dateTimeString, $localTimezone);
+
+                // Convert to UTC for storage
+                $date->setTimezone(new DateTimeZone('UTC'));
+                $entry['date'] = $date->format('Y-m-d');
+                $entry['time'] = $date->format('H:i:s');
+
                 $entries[] = $entry;
             }
         }
@@ -283,10 +295,19 @@ function cst_get_sports_data() {
     $last_updated = get_option('cst_last_updated', 0);
 
     $formatted_entries = array_map(function($entry, $index) {
+        // Combine date and time
+        $dateTimeString = $entry['date'] . ' ' . $entry['time'];
+
+        // Create DateTime object in UTC
+        $date = new DateTime($dateTimeString, new DateTimeZone('UTC'));
+
+        // Set to WordPress timezone for display
+        $date->setTimezone(new DateTimeZone(get_option('timezone_string')));
+
         return array(
             'id' => 'manual_' . $index,
-            'date' => $entry['date'],
-            'time' => !empty($entry['time']) ? $entry['time'] : 'TBA',
+            'date' => $date->format('Y-m-d'), // Format date for output
+            'time' => !empty($entry['time']) ? $date->format('H:i') : 'TBA', // Format time for output
             'sport' => $entry['sport'],
             'team1' => !empty($entry['team1']) ? $entry['team1'] : 'Clemson',
             'team2' => $entry['team2'],
